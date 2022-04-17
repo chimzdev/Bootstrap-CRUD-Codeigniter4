@@ -35,9 +35,9 @@
                             <td><?php echo $post['judul_post'] ?></td>
                             <td><?php echo $post['detail_post'] ?></td>
                             <td class="text-center">
-                                <a href="<?php echo base_url('post/edit/'.$post['id']) ?>"
+                                <a href="<?php echo base_url('post/edit/'.$post['id_post']) ?>"
                                     class="btn btn-sm btn-primary">EDIT</a>
-                                <a href="<?php echo base_url('post/delete/'.$post['id']) ?>"
+                                <a href="<?php echo base_url('post/delete/'.$post['id_post']) ?>"
                                     class="btn btn-sm btn-danger">HAPUS</a>
                             </td>
                         </tr>

@@ -20,4 +20,54 @@ class Post extends Controller
         );
         return view('post-index', $data);
     }
+    
+    /**
+    * create function
+    */
+    public function create()
+    {
+        return view('post-create');
+    }
+
+    /**
+    * store function
+    */
+    public function store()
+    {
+        //load helper form and URL
+        helper(['form', 'url']);
+        //define validation
+        $validation = $this->validate([
+            'title' => [
+                'rules' => 'required',
+                'errors' => [
+                'required' => 'Masukkan Judul Post.'
+                ]
+            ],
+            'content' => [
+                'rules' => 'required',
+                'errors' => [
+                'required' => 'Masukkan Detail Post.'
+                ]
+            ],
+        ]);
+        if(!$validation) {
+            //render view with error validation message
+            return view('post-create', [
+                'validation' => $this->validator
+            ]);
+        } else {
+            //model initialize
+            $postModel = new PostModel();
+            //insert data into database
+            $postModel->insert([
+                'judul_post' => $this->request->getPost('title'),
+                'detail_post' => $this->request->getPost('content'),
+            ]);
+            //flash message
+            session()->setFlashdata('message', 'Post Berhasil Disimpan');
+            return redirect()->to(base_url('post'));
+        }
+    }
+
 }
